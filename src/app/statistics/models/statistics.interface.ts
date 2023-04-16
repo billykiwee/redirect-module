@@ -1,6 +1,9 @@
 export interface StatisticsInt {
-  linkID: string;
   uuid: string;
+  link: {
+    id: string;
+    uuid: string;
+  };
   metrics: {
     views: number;
     refs: string[];

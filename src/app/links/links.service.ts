@@ -1,24 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { randomUUID } from 'crypto';
+import { linksMock } from './mock/link.mock';
 import { LinksInt } from './models/links.interface';
 
 @Injectable()
 export class LinksService {
-  links: LinksInt[] = [
-    {
-      id: 'cool',
-      uuid: randomUUID(),
-      url: 'https://www.youtube.fr',
-      shortLink: 'qlee.me/cool',
-      user: {
-        uuid: randomUUID(),
-      },
-      statistics: {
-        uuid: randomUUID(),
-      },
-      createdAt: new Date(),
-    },
-  ];
+  links: LinksInt[] = linksMock;
 
   public find(id: string) {
     return this.links.find((link) => link.id === id);
@@ -30,5 +16,9 @@ export class LinksService {
 
   public createLink(link: LinksInt) {
     return (this.links = [...this.links, link]);
+  }
+
+  public deleteLink(id: string) {
+    return (this.links = this.links.filter((link) => link.id !== id));
   }
 }

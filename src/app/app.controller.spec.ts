@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RedirectController } from './redirect.controller';
-import { AppService } from './redirect.service';
+import { RedirectService } from './redirect.service';
 
 describe('AppController', () => {
   let redirectController: RedirectController;
@@ -8,7 +8,7 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [RedirectController],
-      providers: [AppService],
+      providers: [RedirectService],
     }).compile();
 
     redirectController = app.get<RedirectController>(RedirectController);

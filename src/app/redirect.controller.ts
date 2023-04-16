@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
 import { LinksService } from 'src/app/links/links.service';
+import { errorHandler } from 'src/handlers/error';
 
 @Controller('/')
 export class RedirectController {
@@ -11,6 +12,8 @@ export class RedirectController {
 
     if (link) {
       return res.redirect(link.url);
+    } else {
+      res.send(errorHandler(id).API_request.notFound);
     }
   }
 }
