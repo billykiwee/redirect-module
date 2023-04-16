@@ -1,4 +1,4 @@
-import { LinksInt } from 'src/links/models/links.interface';
+import { LinksInt } from 'src/app/links/models/links.interface';
 
 export interface TransactionsInt {
   uuuid: string;

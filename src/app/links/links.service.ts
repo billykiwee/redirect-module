@@ -18,35 +18,17 @@ export class LinksService {
       },
       createdAt: new Date(),
     },
-    {
-      id: 'aaa',
-      uuid: randomUUID(),
-      url: 'https://www.facebook.com',
-      shortLink: 'qlee.me/aaa',
-      user: {
-        uuid: randomUUID(),
-      },
-      statistics: {
-        uuid: randomUUID(),
-      },
-      createdAt: new Date(),
-    },
-    {
-      id: 'abc',
-      uuid: randomUUID(),
-      url: 'https://www.abc.com',
-      shortLink: 'qlee.me/aaa',
-      user: {
-        uuid: randomUUID(),
-      },
-      statistics: {
-        uuid: randomUUID(),
-      },
-      createdAt: new Date(),
-    },
   ];
 
   public find(id: string) {
     return this.links.find((link) => link.id === id);
+  }
+
+  public findAll() {
+    return this.links;
+  }
+
+  public createLink(link: LinksInt) {
+    return (this.links = [...this.links, link]);
   }
 }
