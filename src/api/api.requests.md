@@ -2,13 +2,11 @@
 
 ## Links
 
-### `GET - qlee.me-API=links/read`
-
 To get all links
-
-### `GET - qlee.me-API=links/read?id=:id`
+`GET - qlee.me-API=links/read`
 
 To get one link details
+`GET - qlee.me-API=links/read?id=:id`
 
 `POST - qlee.me-API=links/create`
 To create a link
@@ -18,13 +16,11 @@ To delete a link
 
 ## Statistics
 
-### `GET - qlee.me-API=statistics/read`
-
 To get all statistics
-
-### `GET - qlee.me-API=statistics/read?id=:id`
+`GET - qlee.me-API=statistics/read`
 
 To get one statistic details
+`GET - qlee.me-API=statistics/read?id=:id`
 
 `POST - qlee.me-API=statistics/create`
 To create a statistic
@@ -34,13 +30,11 @@ To delete a statistic
 
 ## Users
 
-### `GET - qlee.me-API=users/read`
-
 To get all users
-
-### `GET - qlee.me-API=users/read?id=:id`
+`GET - qlee.me-API=users/read`
 
 To get one user details
+`GET - qlee.me-API=users/read?id=:id`
 
 `POST - qlee.me-API=users/create`
 To create a user
