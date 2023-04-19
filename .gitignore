@@ -1,6 +1,8 @@
 # compiled output
 /dist
 /node_modules
+/src/firebase/firebase.json
+/src/env
 
 # Logs
 logs

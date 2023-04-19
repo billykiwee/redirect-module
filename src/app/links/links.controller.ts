@@ -12,28 +12,24 @@ import { LinksService } from './links.service';
 
 @Controller('qlee.me-API=links')
 export class LinksController {
+  private startLoading = performance.now();
+
   constructor(private readonly linksService: LinksService) {}
 
-  @Get('read')
-  read(@Query('id') id: string) {
-    if (id) {
-      return (
-        this.linksService.find(id) ??
-        new NotFoundException(`No data found for id: ${id}`)
-      );
-    }
-
-    return this.linksService.findAll();
+  @Get()
+  async read(@Query('id') id: string) {
+    this.linksService.find(id);
   }
 
   @Post('create')
-  @ApiOkResponse({ status: 201, description: 'Link à été crée' })
+  @ApiOkResponse({ status: 201, description: 'Link a été créé' })
   create(@Body() data: any) {
     this.linksService.createLink(data);
   }
 
-  @Delete('delete')
-  deleteL(@Query('id') id: string) {
+  @Delete()
+  @ApiOkResponse({ status: 200, description: 'Link a été supprimé' })
+  delete(@Query('id') id: string) {
     this.linksService.deleteLink(id);
   }
 }

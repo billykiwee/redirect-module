@@ -24,6 +24,9 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^11.7.0",
+    "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },

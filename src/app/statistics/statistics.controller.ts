@@ -5,7 +5,7 @@ import { StatisticsService } from './statistics.service';
 export class StatisticsController {
   constructor(private readonly statisticsService: StatisticsService) {}
 
-  @Get('read')
+  /* @Get('read')
   read(@Query('id') id: string) {
     if (id) {
       return this.statisticsService.find(id);
@@ -17,5 +17,5 @@ export class StatisticsController {
   @Post('create')
   create(@Body() data: any) {
     this.statisticsService.createLink(data);
-  }
+  } */
 }

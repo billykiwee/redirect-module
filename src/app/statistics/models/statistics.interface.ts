@@ -8,6 +8,10 @@ export interface StatisticsInt {
     views: number;
     refs: string[];
     adresses: string[];
+    devices: {
+      mobile: number;
+      desktop: number;
+    };
   };
-  updatedAt: Date;
+  updatedAt: any;
 }
