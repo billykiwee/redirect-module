@@ -10,9 +10,16 @@ import { StatisticsModule } from './statistics/statistics.module';
 import { StatisticsService } from './statistics/statistics.service';
 import { FirebaseModule } from 'src/firebase/firebase.module';
 import { FirebaseService } from 'src/firebase/firebase.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as admin from 'firebase-admin';
 
 @Module({
-  imports: [LinksModule, StatisticsModule, FirebaseModule],
+  imports: [
+    ConfigModule.forRoot(),
+    LinksModule,
+    StatisticsModule,
+    FirebaseModule,
+  ],
   controllers: [RedirectController, StatisticsController, LinksController],
   providers: [
     RedirectService,
@@ -21,4 +28,22 @@ import { FirebaseService } from 'src/firebase/firebase.service';
     FirebaseService,
   ],
 })
-export class RedirectModule {}
+export class RedirectModule {
+  constructor(private configService: ConfigService) {
+    this.firebaseInitialize();
+  }
+
+  firebaseInitialize() {
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: this.configService.get('FIREBASE_ADMIN_PROJECT_ID'),
+        privateKey: this.configService
+          .get('FIREBASE_ADMIN_PRIVATE_KEY')
+          .replace(/\\n/g, '\n'),
+        clientEmail: this.configService.get('FIREBASE_ADMIN_CLIENT_EMAIL'),
+      }),
+      databaseURL:
+        'https://likeme-2b112-default-rtdb.europe-west1.firebasedatabase.app',
+    });
+  }
+}

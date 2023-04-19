@@ -17,7 +17,7 @@ export class RedirectController {
     @Res() res: any,
     @Req() req: Request,
   ) {
-    const link = this.firebaseService.collections('links')?.doc(id);
+    const link = this.firebaseService.collections('linkss').doc(id);
 
     const getReferer = req.headers['referer'] || req.headers['referrer'];
 

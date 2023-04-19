@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /src/firebase/firebase.json
-/src/env
+.env
 
 # Logs
 logs

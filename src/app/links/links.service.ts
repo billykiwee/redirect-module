@@ -15,7 +15,7 @@ export class LinksService {
 
   public async find(id: string): Promise<FirebaseFirestore.DocumentData> {
     const snapshot = await this.firebaseService
-      .collections('links')
+      .collections('linkss')
       .doc(id)
       .get();
 
@@ -27,7 +27,7 @@ export class LinksService {
   }
 
   public async createLink(link: LinksInt) {
-    await this.firebaseService.collections('links').doc(link.id).set(link);
+    await this.firebaseService.collections('linkss').doc(link.id).set(link);
 
     this.statisticsService.create(link.id);
   }
