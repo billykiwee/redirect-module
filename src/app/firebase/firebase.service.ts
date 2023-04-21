@@ -5,13 +5,11 @@ import * as admin from 'firebase-admin';
 export class FirebaseService {
   public Admin = admin;
 
-  public collections = (
+  public collections(
     ref: collectionType,
-  ): FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData> => {
-    const db = admin.firestore();
-
-    return db.collection(ref);
-  };
+  ): FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData> {
+    return admin.firestore().collection(ref);
+  }
 }
 
 type collectionType = 'linkss' | 'statistics';

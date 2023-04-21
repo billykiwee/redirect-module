@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FirebaseService } from 'src/firebase/firebase.service';
+import { FirebaseService } from 'src/app/firebase/firebase.service';
 import { StatisticsService } from '../statistics/statistics.service';
 import { linksMock } from './mock/link.mock';
 import { LinksInt } from './models/links.interface';

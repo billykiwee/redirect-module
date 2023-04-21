@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { FirebaseService } from 'src/firebase/firebase.service';
+import { FirebaseService } from 'src/app/firebase/firebase.service';
 import { StatisticsInt } from './models/statistics.interface';
 
 @Injectable()
@@ -50,8 +50,6 @@ export class StatisticsService {
     };
 
     const statistics = await getStats();
-
-    console.log(ref);
 
     const IP = await getIP();
 
