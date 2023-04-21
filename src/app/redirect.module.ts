@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { RedirectController } from './redirect.controller';
-import { RedirectService } from './redirect.service';
 
 import { LinksController } from 'src/app/links/links.controller';
 import { LinksModule } from './links/links.module';
@@ -15,12 +14,7 @@ import { initializeFirebase } from './firebase/firebase.config';
 @Module({
   imports: [LinksModule, StatisticsModule, FirebaseModule],
   controllers: [RedirectController, StatisticsController, LinksController],
-  providers: [
-    RedirectService,
-    LinksService,
-    StatisticsService,
-    FirebaseService,
-  ],
+  providers: [LinksService, StatisticsService, FirebaseService],
 })
 export class RedirectModule {
   constructor() {

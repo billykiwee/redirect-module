@@ -8,32 +8,7 @@ export const statisticsMock: StatisticsInt[] = [
       id: 'cool',
       uuid: randomUUID(),
     },
-    metrics: {
-      views: randomInt(3),
-      refs: ['facbok.com', 'instagram.com'],
-      adresses: ['23488.393.439', '384.3932.39'],
-      devices: {
-        mobile: 10,
-        desktop: 293,
-      },
-    },
-    updatedAt: new Date(),
-  },
-  {
-    uuid: randomUUID(),
-    link: {
-      id: 'statsuper',
-      uuid: randomUUID(),
-    },
-    metrics: {
-      views: randomInt(3),
-      refs: ['facbok.com', 'instagram.com'],
-      adresses: ['23488.393.439', '384.3932.39'],
-      devices: {
-        mobile: 10,
-        desktop: 293,
-      },
-    },
+    views: randomInt(3),
     updatedAt: new Date(),
   },
 ];

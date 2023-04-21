@@ -5,11 +5,19 @@ import * as admin from 'firebase-admin';
 export class FirebaseService {
   public Admin = admin;
 
-  public collections(
-    ref: collectionType,
-  ): FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData> {
-    return admin.firestore().collection(ref);
-  }
+  public db = admin.firestore();
+
+  public database = (collection: string) => {
+    return this.db.collection(collection);
+  };
+
+  public read = async (path: documentType): Promise<documentType | null> => {
+    const snapshot = await path.get();
+    return snapshot.exists ? (snapshot.data() as documentType) : null;
+  };
 }
 
-type collectionType = 'linkss' | 'statistics';
+export type documentType = FirebaseFirestore.DocumentData;
+
+export type collectionType =
+  admin.firestore.CollectionReference<admin.firestore.DocumentData>;

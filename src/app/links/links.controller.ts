@@ -4,7 +4,7 @@ import { LinksService } from './links.service';
 
 @Controller('qlee.me-API=links')
 export class LinksController {
-  private startLoading = performance.now();
+  /*   private startLoading = performance.now();
 
   constructor(private readonly linksService: LinksService) {}
 
@@ -23,5 +23,5 @@ export class LinksController {
   @ApiOkResponse({ status: 200, description: 'Link a été supprimé' })
   delete(@Query('id') id: string) {
     this.linksService.deleteLink(id);
-  }
+  } */
 }

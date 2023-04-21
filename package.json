@@ -25,11 +25,14 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
+    "device": "^0.3.12",
     "dotenv": "^16.0.3",
+    "express-useragent": "^1.0.15",
     "firebase-admin": "^11.7.0",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "useragent": "^2.3.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

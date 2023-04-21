@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Req, Res } from '@nestjs/common';
 import { LinksService } from 'src/app/links/links.service';
+import { GetDevice } from 'src/utils/functions/getDevice';
 import { StatisticsService } from './statistics/statistics.service';
 
 @Controller('/')
@@ -21,8 +22,12 @@ export class RedirectController {
 
     const link = await this.linksService.find(id);
 
+    console.log(link);
+
+    const device = GetDevice(req.headers['user-agent'] || '');
+
     if (link) {
-      this.statisticsService.update(link.id, referer);
+      await this.statisticsService.update(link.id, referer, device);
 
       res.redirect(link.url);
     }

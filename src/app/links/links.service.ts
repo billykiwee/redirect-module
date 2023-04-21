@@ -14,20 +14,14 @@ export class LinksService {
   links: LinksInt[] = linksMock;
 
   public async find(id: string): Promise<FirebaseFirestore.DocumentData> {
-    const snapshot = await this.firebaseService
-      .collections('linkss')
-      .doc(id)
-      .get();
+    const data = this.firebaseService.database('linkss').doc(id);
+    console.log(data);
 
-    if (snapshot.exists) {
-      return snapshot.data();
-    } else {
-      return null;
-    }
+    return await this.firebaseService.read(data);
   }
 
   public async createLink(link: LinksInt) {
-    await this.firebaseService.collections('linkss').doc(link.id).set(link);
+    await this.firebaseService.database('linkss').doc(link.id).set(link);
 
     this.statisticsService.create(link.id);
   }
