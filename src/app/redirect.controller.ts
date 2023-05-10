@@ -1,28 +1,46 @@
-import { Controller, Get, Param, Req, Res } from '@nestjs/common';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { LinksService } from './links/links.service';
-
-import { StatisticsService } from './statistics/statistics.service';
+import * as admin from 'firebase-admin';
 
 @Controller('/')
 export class RedirectController {
-  constructor(
-    private readonly linksService: LinksService,
-    private readonly statisticsService: StatisticsService,
-  ) {}
+  public db = admin.firestore();
+
+  public read = async (
+    path: FirebaseFirestore.DocumentData,
+  ): Promise<Array<{ id: string; data: any }> | null> => {
+    try {
+      const querySnapshot = await path.get();
+
+      const documents: Array<{ id: string; data: any }> = [];
+
+      querySnapshot.forEach((doc) => {
+        const documentData = {
+          id: doc.id,
+          data: doc.data(),
+        };
+        documents.push(documentData);
+      });
+
+      return documents;
+    } catch (error) {
+      console.log('Error at reading collection :', error);
+      return null;
+    }
+  };
 
   @Get('/:id')
-  async redirect(
-    @Param('id') id: string,
-    @Res() res: Response,
-    @Req() req: Request,
-  ) {
-    const link = await this.linksService.find(id);
+  async redirect(@Param('id') id: string, @Res() res: Response) {
+    const getLinks = this.db.collection('links');
+
+    const links = await this.read(getLinks);
+
+    const link = links.find((link) => link.data.id === id);
+
+    console.log(link);
 
     if (link) {
-      await this.statisticsService.update(link.id, req);
-
-      res.redirect(link.url);
+      res.redirect(link.data.url);
     } else {
       res.status(404).send('Link not found');
     }
