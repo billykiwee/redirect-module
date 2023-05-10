@@ -29,6 +29,7 @@
     "dotenv": "^16.0.3",
     "express-useragent": "^1.0.15",
     "firebase-admin": "^11.7.0",
+    "open": "^9.1.0",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",

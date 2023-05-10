@@ -1,6 +1,6 @@
 export type ShortLinkType = `qlee.me/${string}`;
 
-export type URLType = `https://${string}.${string}.${string}`;
+export type URLType = `https://${string | ''}.${string}.${string}`;
 
 export interface LinksInt {
   id: string;

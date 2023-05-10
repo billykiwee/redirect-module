@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { FirebaseService } from 'src/app/firebase/firebase.service';
+
 import { StatisticsService } from '../statistics/statistics.service';
 import { linksMock } from './mock/link.mock';
 import { LinksInt } from './models/links.interface';
@@ -15,7 +16,6 @@ export class LinksService {
 
   public async find(id: string): Promise<FirebaseFirestore.DocumentData> {
     const data = this.firebaseService.database('linkss').doc(id);
-    console.log(data);
 
     return await this.firebaseService.read(data);
   }

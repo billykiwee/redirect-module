@@ -15,6 +15,29 @@ export class FirebaseService {
     const snapshot = await path.get();
     return snapshot.exists ? (snapshot.data() as documentType) : null;
   };
+
+  public readCollection = async (
+    path: documentType,
+  ): Promise<Array<{ id: string; data: any }> | null> => {
+    try {
+      const querySnapshot = await path.get();
+
+      const documents: Array<{ id: string; data: any }> = [];
+
+      querySnapshot.forEach((doc) => {
+        const documentData = {
+          id: doc.id,
+          data: doc.data(),
+        };
+        documents.push(documentData);
+      });
+
+      return documents;
+    } catch (error) {
+      console.log('Erreur lors de la lecture de la collection :', error);
+      return null;
+    }
+  };
 }
 
 export type documentType = FirebaseFirestore.DocumentData;

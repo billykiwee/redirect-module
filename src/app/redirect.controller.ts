@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Req, Res } from '@nestjs/common';
-import { LinksService } from 'src/app/links/links.service';
-import { GetDevice } from 'src/utils/functions/getDevice';
+import { Response } from 'express';
+import { LinksService } from './links/links.service';
+
 import { StatisticsService } from './statistics/statistics.service';
 
 @Controller('/')
@@ -13,23 +14,17 @@ export class RedirectController {
   @Get('/:id')
   async redirect(
     @Param('id') id: string,
-    @Res() res: any,
+    @Res() res: Response,
     @Req() req: Request,
   ) {
-    const getReferer = req.headers['referer'] || req.headers['referrer'];
-
-    const referer = getReferer ? getReferer.toString() : '';
-
     const link = await this.linksService.find(id);
 
-    console.log(link);
-
-    const device = GetDevice(req.headers['user-agent'] || '');
-
     if (link) {
-      await this.statisticsService.update(link.id, referer, device);
+      await this.statisticsService.update(link.id, req);
 
       res.redirect(link.url);
+    } else {
+      res.status(404).send('Link not found');
     }
   }
 }

@@ -5,16 +5,14 @@ import { StatisticsService } from './statistics.service';
 export class StatisticsController {
   constructor(private readonly statisticsService: StatisticsService) {}
 
-  /* @Get('read')
+  @Get('read')
   read(@Query('id') id: string) {
     if (id) {
       return this.statisticsService.find(id);
     }
-
-    return this.statisticsService.findAll();
   }
 
-  @Post('create')
+  /* @Post('create')
   create(@Body() data: any) {
     this.statisticsService.createLink(data);
   } */

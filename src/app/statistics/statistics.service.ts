@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { FirebaseService } from 'src/app/firebase/firebase.service';
+
+import { GetDevice } from 'src/utils/functions/getDevice';
 import { getIP } from 'src/utils/functions/getIP';
+import { FirebaseService } from '../firebase/firebase.service';
 import { MetricsInt, StatisticsInt } from './models/statistics.interface';
 
 @Injectable()
@@ -10,13 +12,22 @@ export class StatisticsService {
 
   public statistics = this.firebaseSerice.database('statistics');
 
+  public async find(id: string) {
+    const stats = this.firebaseSerice.db
+      .collection('statistics')
+      .doc(id)
+      .collection('stat');
+
+    return this.firebaseSerice.readCollection(stats);
+  }
+
   public async create(id: string) {
     const stats = this.statistics.doc(id);
 
     const data: StatisticsInt = {
       uuid: randomUUID(),
       link: {
-        id: randomUUID(),
+        id,
         uuid: randomUUID(),
       },
       views: 0,
@@ -27,11 +38,12 @@ export class StatisticsService {
     stats.set(data);
   }
 
-  public async update(id: string, ref: string, device: string) {
+  public async update(id: string, req: Request) {
+    const ref = req.headers['referer'] || req.headers['referrer'];
     const metrics: MetricsInt = {
-      ref: ref,
+      ref: ref?.toString() ?? '',
       adresse: await getIP(),
-      device: device,
+      device: GetDevice(req.headers['user-agent'] || ''),
     };
 
     const readStat = await this.firebaseSerice.read(
