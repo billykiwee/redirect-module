@@ -4,22 +4,16 @@ import * as admin from 'firebase-admin';
 
 @Controller('/')
 export class RedirectController {
-  public db = admin.firestore();
-
-  public read = async (
+  public firebaseService = async (
     path: FirebaseFirestore.DocumentData,
-  ): Promise<Array<{ id: string; data: any }> | null> => {
+  ): Promise<LinkInt[] | null> => {
     try {
       const querySnapshot = await path.get();
 
-      const documents: Array<{ id: string; data: any }> = [];
+      const documents: any = [];
 
       querySnapshot.forEach((doc) => {
-        const documentData = {
-          id: doc.id,
-          data: doc.data(),
-        };
-        documents.push(documentData);
+        documents.push(doc.data());
       });
 
       return documents;
@@ -31,18 +25,28 @@ export class RedirectController {
 
   @Get('/:id')
   async redirect(@Param('id') id: string, @Res() res: Response) {
-    const getLinks = this.db.collection('links');
+    const db = admin.firestore();
 
-    const links = await this.read(getLinks);
+    const getLinks = db.collection('links');
 
-    const link = links.find((link) => link.data.id === id);
+    const links = await this.firebaseService(getLinks);
 
-    console.log(link);
+    const link = links.find((link) => link.id === id);
 
-    if (link) {
-      res.redirect(link.data.url);
-    } else {
+    if (!link) {
       res.status(404).send('Link not found');
+      return;
     }
+
+    res.redirect(link.url);
   }
+}
+
+interface LinkInt {
+  date: string;
+  id: string;
+  name: string;
+  shortLink: string;
+  url: string;
+  user: string;
 }
